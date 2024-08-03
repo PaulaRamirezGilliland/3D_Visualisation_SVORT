@@ -202,14 +202,18 @@ if __name__ == '__main__':
     # Load volumes and masks
     volume, volume_np = load_volume(volume_path)
     volume_full, volume_np_full = load_volume(volume_path_full)
-    mask, mask_np = load_volume(mask_path)
-    volume_masked = mask_np * volume_np
+    if mask_path is not None:
+        mask, mask_np = load_volume(mask_path)
+        vol = mask_np * volume_np
+
+    else:
+        vol = volume_np
 
     # Load transforms
     transforms_gt, transforms_pred = load_transforms(transforms_path)
 
     # Identify useful slices
-    useful_slices = get_useful_slices(volume_masked)
+    useful_slices = get_useful_slices(vol)
 
     # Create a PyVista plotter with two side-by-side viewports
     plotter = pv.Plotter(shape=(2, 3))
