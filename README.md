@@ -5,10 +5,15 @@
 # Requirements
 
 Python 3.8
+
 pyvista==0.39.0                                                                                                       
+
 PyYAML==6.0.1
+
 scipy==1.10.1
+
 SimpleITK==2.2.1
+
 vtk==9.2.6
 
 Docker: 
@@ -33,7 +38,7 @@ Images should be in nifti format.
 
 Command to use: 
 
-python main.py --config path_to_config.yaml
+```python main.py --config path_to_config.yaml```
 
 # Interactive Display
 
