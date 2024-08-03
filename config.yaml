@@ -1,0 +1,4 @@
+2D_volume_path: C:\Users\prg20local\OneDrive - King's College London\Research Project\PhD\US_recon\Data\redo_preproc_STIC_Jan24\reg-mvp-FEB24-all-data\reg-ED-downsampled\iFIND00212_27Jan2017\r2-reg-2d-3d-masked-1.nii.gz
+STIC_path: C:\Users\prg20local\OneDrive - King's College London\Research Project\PhD\US_recon\Data\redo_preproc_STIC_Jan24\reg-mvp-FEB24-all-data\reg-ED-downsampled\iFIND00212_27Jan2017\reg-IM_0170-ED-iso-1.nii.gz
+mask_path: .\data\Repeat_mask-ED-iso-1.nii.gz
+transforms_path: C:\Users\prg20local\OneDrive - King's College London\Research Project\PhD\US_recon\Experiments\3D_2D_Jun24\ablation_studies\700000+iters\SVoRT_3D_axialview_jitter45normal_ptsliceloss_res1_b8_sparsein_noPE\test2D\test_unseen_overlap\maskheart\r1\1\
