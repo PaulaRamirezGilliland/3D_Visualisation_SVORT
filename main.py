@@ -205,6 +205,8 @@ if __name__ == '__main__':
     mask_path = os.path.join('/data/', CONFIG['mask_path'])
     transforms_path = os.path.join('/data/', CONFIG['transforms_path'])
 
+    print("Volume_path", volume_path)
+
     # Load volumes and masks
     volume, volume_np = load_volume(volume_path)
     volume_full, volume_np_full = load_volume(volume_path_full)
