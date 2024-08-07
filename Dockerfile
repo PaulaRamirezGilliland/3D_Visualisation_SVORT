@@ -15,12 +15,12 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     x11-apps  # For testing X11 applications
 
-
 # Ensure the repository contents are correctly copied
 RUN ls -R /app
 
 # Clone the GitHub repository into /app
 RUN git clone https://github.com/PaulaRamirezGilliland/3D_Visualisation_SVORT.git /app
+
 
 
 # Copy the requirements.txt file into the container
