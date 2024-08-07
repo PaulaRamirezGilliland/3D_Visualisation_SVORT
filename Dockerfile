@@ -18,9 +18,11 @@ RUN git clone https://github.com/PaulaRamirezGilliland/3D_Visualisation_SVORT.gi
 # Copy the requirements.txt file into the container at /app
 COPY requirements.txt .
 # Install any dependencies specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt --timeout=120
 
 COPY . .
 
 # Run your application or script
-CMD ["python", "main.py", "--config", "config.yaml"]
+CMD ["/bin/bash"]
+
+#CMD ["python", "main.py"]
