@@ -5,6 +5,7 @@ import vtk
 from vtk.util.numpy_support import numpy_to_vtk
 from vtkmodules.vtkRenderingCore import vtkPointPicker
 from src.utils import *
+import os
 
 CROSSHAIR_LENGTH = 110
 
@@ -199,10 +200,10 @@ if __name__ == '__main__':
         CONFIG = yaml.safe_load(cf_file.read())
         print(CONFIG)
 
-    volume_path = CONFIG['2D_volume_path']
-    volume_path_full = CONFIG['STIC_path']
-    mask_path = CONFIG['mask_path']
-    transforms_path = CONFIG['transforms_path']
+    volume_path = os.path.join('/data/', CONFIG['2D_volume_path'])
+    volume_path_full = os.path.join('/data/', CONFIG['STIC_path'])
+    mask_path = os.path.join('/data/', CONFIG['mask_path'])
+    transforms_path = os.path.join('/data/', CONFIG['transforms_path'])
 
     # Load volumes and masks
     volume, volume_np = load_volume(volume_path)

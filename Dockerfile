@@ -4,25 +4,31 @@ FROM python:3.8.19-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install git (necessary for cloning the repository)
-RUN apt-get update && apt-get install -y git
-RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+# Install git and packages for running graphical applications
+RUN apt-get update && apt-get install -y \
+    git \
+    ffmpeg \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    x11-apps  # For testing X11 applications
 
+# Clone the GitHub repository into /app
+RUN git clone https://github.com/PaulaRamirezGilliland/3D_Visualisation_SVORT.git /app
 
-# Clone the GitHub repository
-RUN git clone https://github.com/PaulaRamirezGilliland/3D_Visualisation_SVORT.git .
+# Ensure the repository contents are correctly copied
+RUN ls -R /app
 
-# Optionally, checkout a specific branch or commit (if needed)
-# RUN git checkout your-branch-or-commit
+# Copy the requirements.txt file into the container
+COPY requirements.txt /app/
 
-# Copy the requirements.txt file into the container at /app
-COPY requirements.txt .
 # Install any dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt --timeout=120
 
-COPY . .
+# Set environment variable for X11 forwarding
+ENV DISPLAY=:0
 
-# Run your application or script
-CMD ["/bin/bash"]
-
-#CMD ["python", "main.py"]
+# Set the default command to run your Python script
+CMD ["python", "3D_Visualisation_SVORT/main.py"]
