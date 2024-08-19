@@ -18,7 +18,7 @@ if __name__ == '__main__':
     volume_path_full = '/data/' + CONFIG['STIC_path']
     mask_path = '/data/' + CONFIG['mask_path']
     transforms_path = '/data/' + CONFIG['transforms_path']
-    path_save = 'data/' + CONFIG['path_save']
+    path_save = '/data/' + CONFIG['path_save']
     convert_transform = CONFIG['convert_transform']
 
     print("Volume_path", volume_path)
