@@ -13,12 +13,13 @@ if __name__ == '__main__':
         CONFIG = yaml.safe_load(cf_file.read())
         print(CONFIG)
 
-    volume_path = CONFIG['2D_volume_path']
-    volume_path_full = CONFIG['STIC_path']
-    mask_path = CONFIG['mask_path']
-    transforms_path = CONFIG['transforms_path']
-    path_save = CONFIG['path_save']
-    convert_transform = CONFIG['convert_transform']
+
+    volume_path = '/data/' + CONFIG['2D_volume_path']
+    volume_path_full = '/data/' + CONFIG['STIC_path']
+    mask_path = '/data/' + CONFIG['mask_path']
+    transforms_path = '/data/' + CONFIG['transforms_path']
+    path_save = 'data/' + CONFIG['path_save']
+    convert_transform = '/data/' + CONFIG['convert_transform']
 
     print("Volume_path", volume_path)
 
