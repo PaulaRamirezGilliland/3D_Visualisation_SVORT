@@ -17,6 +17,7 @@ if __name__ == '__main__':
     volume_path_full = CONFIG['STIC_path']
     mask_path = CONFIG['mask_path']
     transforms_path = CONFIG['transforms_path']
+    path_save = CONFIG['path_save']
     convert_transform = CONFIG['convert_transform']
 
     print("Volume_path", volume_path)
@@ -44,7 +45,8 @@ if __name__ == '__main__':
 
     # Convert and save transform and slices to be read by other toolkits
     if convert_transform:
-        save_for_slicer(useful_slices, volume_np, volume, transforms_path, transforms_gt, pred_inv_transforms)
+        print("Saving transformation and slices in {}".format(path_save))
+        save_for_slicer(useful_slices, volume_np, volume, path_save, transforms_gt, pred_inv_transforms)
 
     # Create a PyVista plotter with two side-by-side viewports
     plotter = pv.Plotter(shape=(2, 3))
