@@ -260,12 +260,14 @@ def add_mesh_to_actor(plotter, overlay, slice_idx, cmap, plotted_slice, opacity,
         slice_actors[slice_idx] = actor
 
 
-def save_transform(transform, ind_tr, transforms_path):
+def save_transform(transform, ind_tr, transforms_path, save_name = "transform-slice-"):
+    # TODO- Parametrize save name
     """
     Converts and saves a numpy array transformation simpleitk transform
     :param transform: numpy array transformation matrix
     :param ind_tr: (int) Slice index
     :param transforms_path: (path) to save transforms
+    :param save_name: (str) filename for saved transform
 
     """
     # Convert your numpy matrix to a SimpleITK Transform
@@ -275,7 +277,7 @@ def save_transform(transform, ind_tr, transforms_path):
     sitk_transform.SetTranslation(np_transform[:3, 3])
 
     # Save the transform as a .tfm file
-    sitk.WriteTransform(sitk_transform, os.path.join(transforms_path, "transform-slice-" + str(ind_tr) + '.tfm'))
+    sitk.WriteTransform(sitk_transform, os.path.join(transforms_path, save_name + str(ind_tr) + '.tfm'))
 
 
 def save_slice(volume_np, volume, index_slice, ind_tr, transforms_path):
@@ -295,7 +297,10 @@ def save_slice(volume_np, volume, index_slice, ind_tr, transforms_path):
     sitk.WriteImage(slice_img, os.path.join(transforms_path, '2D-slice-' + str(ind_tr) + '.nii.gz'))
 
 
-def save_for_slicer(useful_slices, volume_np, volume, transforms_path, transforms_gt, pred_inv_transforms):
+def save_for_slicer(useful_slices, volume_np, volume,
+                    transforms_path, transforms_gt, transforms_pred,
+                    gt_inv_transforms, pred_inv_transforms
+                    ):
     """
     Save nifti files for each slice, as well as the composed GT + predicted inverse transforms as .vtk files
     :param useful_slices: (list) of ints, for slice indices to save
@@ -303,14 +308,19 @@ def save_for_slicer(useful_slices, volume_np, volume, transforms_path, transform
     :param volume: (SimpleITK image) containing origin and spacing information
     :param transforms_path: (path) to save volume files and transformations
     :param transforms_gt: (list) or numpy array containing GT transformations
-    :param pred_inv_transforms: (list or numpy array containing the inverse of the prediced transformations
+    :param transforms_pred: (list or numpy array containing the predicted transformations
+    :param gt_inv_transforms: (list) or numpy array containing inverse of GT transformations
+    :param pred_inv_transforms: (list or numpy array containing inverse of predicted transformations
+
 
     """
     for ind_tr, index_slice in enumerate(useful_slices):
         save_slice(volume_np, volume, index_slice, ind_tr, transforms_path)
-
         # Compose the transform
         transform_convert = compose_transform(transforms_gt[ind_tr], pred_inv_transforms[ind_tr])
-
         # Save into Slicer compatible format
         save_transform(transform_convert, ind_tr, transforms_path)
+        # Save transforms to be applied to STIC
+        transform_convert_stic = compose_transform(transforms_pred[ind_tr], gt_inv_transforms[ind_tr])
+        # Save into Slicer compatible format
+        save_transform(transform_convert_stic, ind_tr, transforms_path, save_name='stic-tr-')

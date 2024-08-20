@@ -14,11 +14,11 @@ if __name__ == '__main__':
         print(CONFIG)
 
 
-    volume_path = '/data/' + CONFIG['2D_volume_path']
-    volume_path_full = '/data/' + CONFIG['STIC_path']
-    mask_path = '/data/' + CONFIG['mask_path']
-    transforms_path = '/data/' + CONFIG['transforms_path']
-    path_save = '/data/' + CONFIG['path_save']
+    volume_path = CONFIG['2D_volume_path']#'/data/' + CONFIG['2D_volume_path']
+    volume_path_full = CONFIG['STIC_path']# '/data/' + CONFIG['STIC_path']
+    mask_path = CONFIG['mask_path'] #'/data/' + CONFIG['mask_path']
+    transforms_path = CONFIG['transforms_path']#'/data/' + CONFIG['transforms_path']
+    path_save = CONFIG['path_save']#'/data/' + CONFIG['path_save']
     convert_transform = CONFIG['convert_transform']
 
     print("Volume_path", volume_path)
@@ -47,7 +47,9 @@ if __name__ == '__main__':
     # Convert and save transform and slices to be read by other toolkits
     if convert_transform:
         print("Saving transformation and slices in {}".format(path_save))
-        save_for_slicer(useful_slices, volume_np, volume, path_save, transforms_gt, pred_inv_transforms)
+        save_for_slicer(useful_slices, volume_np, volume,
+                        path_save, transforms_gt, transforms_pred,
+                        gt_inv_transforms, pred_inv_transforms)
 
     # Create a PyVista plotter with two side-by-side viewports
     plotter = pv.Plotter(shape=(2, 3))
